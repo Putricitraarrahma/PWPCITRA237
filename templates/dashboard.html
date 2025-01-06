@@ -1,141 +1,197 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #71B6E1FF;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+{% extends 'base.html' %}
 
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
+{% block head %}
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color:  #71B6E1FF;
+        margin: 0;
+        padding: 0;
+    }
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
+    .btn {}
 
-        label {
-            font-size: 14px;
-            font-weight: bold;
-            color: #555;
-            margin-bottom: 5px;
-            display: block;
-        }
+    nav {   
+        width: 100%;
+        height: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+    }
 
-        input, select, button {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
+    .container {
+        width: 90%;
+        max-width: 1100px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #90DED4FF;
+        bordtext-align: center;-align: center;adius: 8px;
+       
+    }
 
-        input[type="password"] {
-            font-family: Arial, sans-serif;
-        }
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 2rem;
+    }
 
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
 
-        button:hover {
-            background-color: #45a049;
-        }
+    .btn-primary {
+        background-color:#71B6E1FF;
+    }
 
-        p {
-            text-align: center;
-        }
+    .btn-primary:hover {
+        background-color: #71B6E1FF;
+    }
 
-        p a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
+    .btn-edit {
+        background-color: #5A9BE6FF;
+    }
 
-        p a:hover {
-            text-decoration: underline;
-        }
+    .btn-edit:hover {
+        background-color: #4A8CCEFF;
+    }
 
-        /* Styling for Flash Messages */
-        .flash-message {
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            color: white;
-            text-align: center;
-        }
+    .btn-delete {
+        background-color: #DE493FFF;
+    }
 
-        .flash-success {
-            background-color: #28a745;
-        }
+    .btn-delete:hover {
+        background-color: #EA504EFF;
+    }
 
-        .flash-danger {
-            background-color: #dc3545;
-        }
+    .btn-logout {
+        background-color:  #555;
+        display: block;
+        width: 50px;
+        text-align: center;
+        margin-top: 30px;
+        margin-left: 30px;
+    }
 
-        .flash-warning {
-            background-color: #ffc107;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Register</h1>
+    .btn-logout:hover {
+        background-color: #898787FF;
+    }
 
-        <!-- Flash Message Display -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="flash-message flash-{{ category }}">
-                        {{ message }}
-                    </div>
+    .btn-login {
+        background-color:  #555;
+        display: block;
+        width: 50px;
+        text-align: center;
+        margin-top: 30px;
+        margin-left: auto;
+    }
+
+    .btn-login:hover {
+        background-color:  #898787FF;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #fff;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #555;
+        color: white;
+        font-size: 1.1rem;
+    }
+
+    td {
+        color: #555;
+        font-size: 1rem;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    .actions {
+        display: flex;
+        gap: 10px;
+    }
+    Navigation {
+        height: 50px;
+        width: 100px;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+<nav>
+    <a href="{{ url_for('login') }}" class="btn btn-login">Login</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-logout">Logout</a>
+</nav>    
+
+
+<div class="container">
+    <h2 style="bold">Dashboard</h2>
+    <a href="{{ url_for('add_user') }}" class="btn btn-primary">Add User</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if users %}
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td class="actions">
+                        <a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn btn-edit">Edit</a>
+                        <a href="{{ url_for('delete_user', user_id=user.id) }}"  class="btn btn-delete">Delete</a>
+                    </td>
+                </tr>
                 {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center;">No users found.</td>
+                </tr>
             {% endif %}
-        {% endwith %}
+        </tbody>
+    </table>
+</div>
 
-        <form method="POST">
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username" required><br>
+<footer class="bg-gray-800 text-white text-center p-4 mt-10 shadow-lg">
+    <p>&copy; 2025 User Management App. All rights reserved.</p>
+</footer>
+{% endblock %}
 
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email" required><br>
-
-            <label for="role">Role:</label>
-            <select name="role" id="role">
-                <option value="admin">Admin</option>
-                <option value="user">User</option>
-            </select><br>
-
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" required><br>
-
-            <label for="confirm_password">Confirm Password:</label>
-            <input type="password" name="confirm_password" id="confirm_password" required><br>
-
-            <button type="submit">Register</button>
-        </form>
-
-        <p><a href="{{ url_for('login') }}">Already have an account? Login here.</a></p>
-    </div>
-</body>
-</html>
