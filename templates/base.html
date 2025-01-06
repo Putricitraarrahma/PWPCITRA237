@@ -3,19 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}User Management{% endblock %}</title>
-    <!-- Tailwind CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>{% block title %}User  Management{% endblock %}</title>
+    
+    {% block head %}
+    <style>
+        /* Gaya untuk tabel */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50; /* Warna latar belakang header */
+            color: white; /* Warna teks header */
+            font-size: 1.1rem; /* Ukuran font header */
+        }
+
+        td {
+            color: #555; /* Warna teks sel */
+            font-size: 1rem; /* Ukuran font sel */
+        }
+
+        tr:hover {
+            background-color: #f1f1f1; /* Warna latar belakang saat hover */
+        }
+
+        tr:last-child td {
+            border-bottom: none; /* Menghilangkan border bawah pada baris terakhir */
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px; /* Jarak antara tombol aksi */
+        }
+
+        /* Gaya untuk tombol */
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-edit {
+            background-color: #4a90e2; /* Warna latar belakang tombol Edit */
+        }
+
+        .btn-edit:hover {
+            background-color: #357ABD; /* Warna latar belakang saat hover untuk Edit */
+        }
+
+        .btn-delete {
+            background-color: #f44336; /* Warna latar belakang tombol Delete */
+        }
+
+        .btn-delete:hover {
+            background-color: #e53935; /* Warna latar belakang saat hover untuk Delete */
+        }
+    </style>
+    {% endblock %}
 </head>
 <body class="bg-gray-100 text-gray-800">
 
     <!-- Navigation -->
     <nav class="bg-blue-600 p-4 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-semibold">
-                <a href="{{ url_for('dashboard') }}" class="text-white hover:text-gray-200">User Management</a>
-            </h1>
-            <div>
+        <div class="container 20px flex justify-between items-center">
                 {% if session.get('user_id') %}
                     <a href="{{ url_for('logout') }}" class="text-white hover:text-gray-200 px-4 py-2 rounded-md bg-blue-700 hover:bg-blue-800 transition duration-300">Logout</a>
                 {% else %}
